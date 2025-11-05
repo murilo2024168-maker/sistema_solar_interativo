@@ -216,6 +216,14 @@
             margin-bottom: -20px;
             padding-bottom: 20px;
         }
+        
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
 
         /* -------------------------- */
         /* MEDIA QUERIES (RESPONSIVIDADE) */
@@ -420,21 +428,21 @@
     </main>
     
     <footer>
-        <p>Nota: Distâncias são médias e variam devido às órbitas. Diâmetros baseados em dados da NASA. Imagens: Wikimedia Commons e NASA.</p>
+        <p>Nota: Distâncias são médias e variam devido às órbitas. Diâmetros baseados em dados da <a href="https://www.nasa.gov/" target="_blank">NASA</a>. Imagens: Wikimedia Commons e NASA.</p>
     </footer>
     
     <script>
-        // Mapeamento das imagens de fundo (reintroduzido para o novo layout)
+        // 🚨 CORREÇÃO AQUI: As imagens de fundo agora são as mesmas das imagens do painel.
         const backgroundImages = {
-            'sol': 'https://images-assets.nasa.gov/image/PIA18485/PIA18485~orig.jpg',
-            'mercurio': 'https://images-assets.nasa.gov/image/PIA13645/PIA13645~orig.jpg',
-            'venus': 'https://images-assets.nasa.gov/image/PIA00271/PIA00271~orig.jpg',
-            'terra': 'https://images-assets.nasa.gov/image/PIA12809/PIA12809~orig.jpg',
-            'marte': 'https://images-assets.nasa.gov/image/PIA04222/PIA04222~orig.jpg',
-            'jupiter': 'https://images-assets.nasa.gov/image/PIA21757/PIA21757~orig.jpg',
-            'saturno': 'https://images-assets.nasa.gov/image/PIA17652/PIA17652~orig.jpg',
-            'urano': 'https://images-assets.nasa.gov/image/PIA18182/PIA18182~orig.jpg',
-            'netuno': 'https://images-assets.nasa.gov/image/PIA01142/PIA01142~orig.jpg'
+            'sol': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/320px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg',
+            'mercurio': 'https://images-assets.nasa.gov/image/PIA11245/PIA11245~orig.jpg',
+            'venus': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Venus-real_color.jpg/320px-Venus-real_color.jpg',
+            'terra': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/320px-The_Earth_seen_from_Apollo_17.jpg',
+            'marte': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/320px-OSIRIS_Mars_true_color.jpg',
+            'jupiter': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/320px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg',
+            'saturno': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/320px-Saturn_during_Equinox.jpg',
+            'urano': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Uranus2.jpg/320px-Uranus2.jpg',
+            'netuno': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg/320px-Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg'
         };
 
         const body = document.body;
@@ -454,11 +462,10 @@
             
             // 2. Inicia o FADE-OUT e esconde todos os painéis
             allInfoPanels.forEach(panel => {
-                panel.classList.remove('visible'); // Remove a classe para iniciar fade-out
-                // Após a transição CSS (0.6s), esconde o elemento
+                panel.classList.remove('visible'); 
                 setTimeout(() => {
                     panel.style.display = 'none';
-                }, 600); // Deve ser igual ao tempo da transição em CSS (0.6s = 600ms)
+                }, 600); 
             });
 
             // 3. Remove o destaque de todos os botões
@@ -470,15 +477,13 @@
             // 4. Garante que o novo painel seja mostrado APENAS após o anterior ter começado a desaparecer.
             setTimeout(() => {
                 if (selectedPlanetPanel) {
-                    selectedPlanetPanel.style.display = 'block'; // Mostra o painel
+                    selectedPlanetPanel.style.display = 'block'; 
                     
-                    // Usa requestAnimationFrame para garantir que o display:block seja aplicado
-                    // antes de adicionar a classe 'visible' para o fade-in.
                     window.requestAnimationFrame(() => {
-                        selectedPlanetPanel.classList.add('visible'); // Adiciona a classe para iniciar fade-in
+                        selectedPlanetPanel.classList.add('visible'); 
                     });
                 }
-            }, 610); // 600ms (transição CSS) + 10ms (buffer)
+            }, 610); 
 
             // 5. Destaca o botão ativo
             const clickedButton = document.querySelector(`button[onclick="showPlanet('${planetId}')"]`);
@@ -487,12 +492,8 @@
             }
         }
 
-        // ----------------------------------------------------
-        // O QUIZ FOI REMOVIDO
-        // ----------------------------------------------------
-
         /**
-         * Inicia a página com as informações do Sol (CORRIGIDO PARA EVITAR PISCA-PISCA)
+         * Inicia a página com as informações do Sol
          */
         window.onload = () => {
             // 1. Define o fundo inicial
@@ -514,4 +515,3 @@
     </script>
 </body>
 </html>
-<link rel-="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪐</text></svg>">
