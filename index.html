@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Solar Interativo - Trabalho Escolar</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* -------------------------- */
+        /* ESTILOS GERAIS E CORE */
+        /* -------------------------- */
+        :root {
+            --primary-color: #7ab3ff; /* Azul claro */
+            --secondary-color: #a0c9ff; /* Azul mais claro */
+            --semi-transparent-dark: rgba(26, 51, 77, 0.9); /* Fundo dos cards */
+            --button-bg: #3b6088; /* Azul dos botões */
+            --text-color: #f0f0f0; /* Letras Brancas (como pedido) */
+            --header-bg: rgba(0, 0, 0, 0.8); /* Fundo do cabeçalho */
+        }
+
+        body {
+            font-family: 'Orbitron', Arial, sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px; 
+            text-align: center;
+            min-height: 100vh; 
+
+            /* Estilos de Fundo (Imagens Dinâmicas) */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Fundo fixo */
+            transition: background-image 1s ease-in-out; /* Transição suave para imagens */
+        }
+
+        /* Overlay para escurecer a imagem de fundo e garantir letras brancas legíveis */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Escurece o fundo */
+            z-index: -1; /* Fica atrás do conteúdo */
+        }
+
+        /* 🚨 CORREÇÃO DE EMPILHAMENTO: Garante que o conteúdo fique NA FRENTE */
+        header, nav, main, footer {
+            position: relative;
+            z-index: 1; /* Força o conteúdo a ficar na camada 1 (na frente do overlay z-index -1) */
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 40px; 
+            border-radius: 10px;
+            margin-bottom: 30px; 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
+            max-width: 900px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header h1 {
+            font-size: 2.5em; 
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(122, 179, 255, 0.8); 
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: var(--secondary-color);
+        }
+
+        /* -------------------------- */
+        /* ESTILOS DE NAVEGAÇÃO */
+        /* -------------------------- */
+        nav {
+            margin-bottom: 40px; 
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center;
+            gap: 10px; 
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        nav button {
+            padding: 12px 20px; 
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            border-radius: 25px; 
+            font-size: 1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        nav button:hover {
+            background-color: #5d8ab5; 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        nav button.active {
+            background-color: var(--primary-color); 
+            color: var(--dark-bg, #0d0d2b); 
+            font-weight: bold;
+            transform: scale(1.08); 
+            box-shadow: 0 0 15px var(--primary-color); 
+        }
+
+        /* -------------------------- */
+        /* ESTILOS DO CONTEÚDO PLANETA */
+        /* -------------------------- */
+        .planet-info {
+            display: none; 
+            margin: 20px auto 50px auto; 
+            padding: 40px; 
+            max-width: 900px; 
+            background-color: var(--semi-transparent-dark);
+            border-radius: 15px; 
+            text-align: left;
+            box-shadow: 0 0 30px rgba(122, 179, 255, 0.6); 
+            border: 1px solid rgba(122, 179, 255, 0.3); 
+            
+            opacity: 0; 
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; 
+            transform: translateY(20px); 
+        }
+
+        .planet-info.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .planet-info h2 {
+            font-size: 2.2em; 
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 8px rgba(122, 179, 255, 0.5);
+        }
+
+        .planet-info img {
+            width: 350px; 
+            height: 350px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            margin: 20px auto 40px auto; 
+            display: block;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), 0 0 15px var(--secondary-color); 
+            border: 3px solid var(--primary-color); 
+            animation: pulse 4s infinite alternate ease-in-out; 
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 0 15px var(--secondary-color); }
+            to { transform: scale(1.02); box-shadow: 0 0 25px var(--primary-color); }
+        }
+
+        .details {
+            display: flex;
+            gap: 30px; 
+            margin-top: 30px;
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+
+        .card {
+            flex: 1;
+            min-width: 300px; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); 
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: var(--text-color); /* Letras Brancas */
+        }
+
+        footer {
+            margin-top: 50px; 
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #bbb;
+            background-color: rgba(0, 0, 0, 0.5); 
+            width: 100%;
+            /* Ajuste para garantir que o footer fique no fim */
+            margin-left: -20px; 
+            margin-right: -20px;
+            margin-bottom: -20px;
+            padding-bottom: 20px;
+        }
+
+        /* -------------------------- */
+        /* MEDIA QUERIES (RESPONSIVIDADE) */
+        /* -------------------------- */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            header {
+                padding: 15px 20px;
+                margin-bottom: 20px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            nav {
+                margin-bottom: 30px;
+            }
+            nav button {
+                font-size: 0.9em;
+                padding: 10px 15px;
+            }
+            .planet-info {
+                padding: 20px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .planet-info img {
+                width: 250px;
+                height: 250px;
+            }
+            .details {
+                flex-direction: column; 
+                gap: 20px;
+            }
+            .card {
+                min-width: unset; 
+            }
+            footer {
+                margin-left: -10px; 
+                margin-right: -10px;
+                margin-bottom: -10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div> 
+
+    <header>
+        <h1>🌟 Sistema Solar Interativo 🪐</h1>
+        <p>Explore os planetas e o espaço! Clique em um planeta para ver detalhes, imagens e curiosidades.</p>
+    </header>
+    
+    <nav>
+        <button onclick="showPlanet('sol')">Sol</button>
+        <button onclick="showPlanet('mercurio')">Mercúrio</button>
+        <button onclick="showPlanet('venus')">Vênus</button>
+        <button onclick="showPlanet('terra')">Terra</button>
+        <button onclick="showPlanet('marte')">Marte</button>
+        <button onclick="showPlanet('jupiter')">Júpiter</button>
+        <button onclick="showPlanet('saturno')">Saturno</button>
+        <button onclick="showPlanet('urano')">Urano</button>
+        <button onclick="showPlanet('netuno')">Netuno</button>
+    </nav>
+    
+    <main id="content">
+        <div id="sol" class="planet-info">
+            <h2>Sol (A Estrela Central)</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/320px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg" alt="Imagem do Sol">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>149.600.000 km (1 Unidade Astronômica)</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>O Sol é uma estrela gigante que fornece luz e calor. Seu diâmetro é de aproximadamente **1.392.000 km**. Caberiam mais de um milhão de Terras dentro dele.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="mercurio" class="planet-info">
+            <h2>Mercúrio</h2>
+            <img src="https://images-assets.nasa.gov/image/PIA11245/PIA11245~orig.jpg" alt="Imagem de Mercúrio">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>91.700.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>Mercúrio é o menor planeta, com um diâmetro de apenas **4.880 km**, e o mais rápido em órbita — um ano lá dura apenas 88 dias terrestres!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="venus" class="planet-info">
+            <h2>Vênus</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Venus-real_color.jpg/320px-Venus-real_color.jpg" alt="Imagem de Vênus">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>41.400.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>Vênus tem um diâmetro de **12.104 km**. É o planeta mais quente do Sistema Solar (462°C) devido ao efeito estufa extremo. Ele gira ao contrário dos outros planetas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="terra" class="planet-info">
+            <h2>Terra (Nosso Lar)</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/320px-The_Earth_seen_from_Apollo_17.jpg" alt="Imagem da Terra">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>0 km (Estamos aqui!)</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>O diâmetro da Terra é de **12.742 km** (equatorial). É o único planeta conhecido por ter água líquida em sua superfície e o único a abrigar vida.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="marte" class="planet-info">
+            <h2>Marte</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/320px-OSIRIS_Mars_true_color.jpg" alt="Imagem de Marte">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>78.300.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>Com um diâmetro de **6.779 km**, Marte tem a maior montanha do Sistema Solar (Monte Olimpo) e é o "Planeta Vermelho" por causa do ferro oxidado em seu solo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="jupiter" class="planet-info">
+            <h2>Júpiter</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/320px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg" alt="Imagem de Júpiter">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>628.700.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>Júpiter é o maior planeta, com um diâmetro de **142.984 km**. Sua Grande Mancha Vermelha é uma tempestade gigante maior que a Terra que dura séculos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="saturno" class="planet-info">
+            <h2>Saturno</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/320px-Saturn_during_Equinox.jpg" alt="Imagem de Saturno">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>1.275.000.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>Saturno tem um diâmetro de **120.536 km**. É o planeta menos denso do Sistema Solar; se houvesse um oceano gigante, ele flutuaria.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="urano" class="planet-info">
+            <h2>Urano</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Uranus2.jpg/320px-Uranus2.jpg" alt="Imagem de Urano">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>2.723.000.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>O diâmetro de Urano é de **51.118 km**. Ele é único porque gira "deitado" em seu eixo, como se tivesse tombado.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="netuno" class="planet-info">
+            <h2>Netuno</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg/320px-Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg" alt="Imagem de Netuno">
+            <div class="details">
+                <div class="card">
+                    <h3>Distância Média da Terra</h3>
+                    <p>4.351.000.000 km</p>
+                </div>
+                <div class="card">
+                    <h3>Curiosidade</h3>
+                    <p>Netuno tem um diâmetro de **49.528 km**. É o planeta mais distante do Sol e tem os ventos mais rápidos do Sistema Solar.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Nota: Distâncias são médias e variam devido às órbitas. Diâmetros baseados em dados da NASA. Imagens: Wikimedia Commons e NASA.</p>
+    </footer>
+    
+    <script>
+        // Mapeamento das imagens de fundo (reintroduzido para o novo layout)
+        const backgroundImages = {
+            'sol': 'https://images-assets.nasa.gov/image/PIA18485/PIA18485~orig.jpg',
+            'mercurio': 'https://images-assets.nasa.gov/image/PIA13645/PIA13645~orig.jpg',
+            'venus': 'https://images-assets.nasa.gov/image/PIA00271/PIA00271~orig.jpg',
+            'terra': 'https://images-assets.nasa.gov/image/PIA12809/PIA12809~orig.jpg',
+            'marte': 'https://images-assets.nasa.gov/image/PIA04222/PIA04222~orig.jpg',
+            'jupiter': 'https://images-assets.nasa.gov/image/PIA21757/PIA21757~orig.jpg',
+            'saturno': 'https://images-assets.nasa.gov/image/PIA17652/PIA17652~orig.jpg',
+            'urano': 'https://images-assets.nasa.gov/image/PIA18182/PIA18182~orig.jpg',
+            'netuno': 'https://images-assets.nasa.gov/image/PIA01142/PIA01142~orig.jpg'
+        };
+
+        const body = document.body;
+
+        /**
+         * Função principal para mostrar as informações de um planeta específico.
+         */
+        function showPlanet(planetId) {
+            // 1. Mudar o Fundo Dinamicamente
+            const newBackground = backgroundImages[planetId];
+            if (newBackground) {
+                body.style.backgroundImage = `url('${newBackground}')`;
+            }
+
+            const allInfoPanels = document.querySelectorAll('.planet-info');
+            const selectedPlanetPanel = document.getElementById(planetId);
+            
+            // 2. Inicia o FADE-OUT e esconde todos os painéis
+            allInfoPanels.forEach(panel => {
+                panel.classList.remove('visible'); // Remove a classe para iniciar fade-out
+                // Após a transição CSS (0.6s), esconde o elemento
+                setTimeout(() => {
+                    panel.style.display = 'none';
+                }, 600); // Deve ser igual ao tempo da transição em CSS (0.6s = 600ms)
+            });
+
+            // 3. Remove o destaque de todos os botões
+            const allButtons = document.querySelectorAll('nav button');
+            allButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // 4. Garante que o novo painel seja mostrado APENAS após o anterior ter começado a desaparecer.
+            setTimeout(() => {
+                if (selectedPlanetPanel) {
+                    selectedPlanetPanel.style.display = 'block'; // Mostra o painel
+                    
+                    // Usa requestAnimationFrame para garantir que o display:block seja aplicado
+                    // antes de adicionar a classe 'visible' para o fade-in.
+                    window.requestAnimationFrame(() => {
+                        selectedPlanetPanel.classList.add('visible'); // Adiciona a classe para iniciar fade-in
+                    });
+                }
+            }, 610); // 600ms (transição CSS) + 10ms (buffer)
+
+            // 5. Destaca o botão ativo
+            const clickedButton = document.querySelector(`button[onclick="showPlanet('${planetId}')"]`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+        }
+
+        // ----------------------------------------------------
+        // O QUIZ FOI REMOVIDO
+        // ----------------------------------------------------
+
+        /**
+         * Inicia a página com as informações do Sol (CORRIGIDO PARA EVITAR PISCA-PISCA)
+         */
+        window.onload = () => {
+            // 1. Define o fundo inicial
+            document.body.style.backgroundImage = `url('${backgroundImages['sol']}')`;
+            
+            // 2. Define o painel inicial (Sol) como visível (sem transição)
+            const solElement = document.getElementById('sol');
+            if (solElement) {
+                solElement.style.display = 'block'; // Mostra
+                solElement.classList.add('visible'); // Aplica opacidade 1
+            }
+            
+            // 3. Define o botão inicial (Sol) como ativo
+            const solButton = document.querySelector('button[onclick="showPlanet(\'sol\')"]');
+            if (solButton) {
+                solButton.classList.add('active');
+            }
+        };
+    </script>
+</body>
+</html>
+<link rel-="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪐</text></svg>">
