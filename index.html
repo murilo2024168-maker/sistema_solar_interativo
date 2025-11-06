@@ -202,6 +202,28 @@
             line-height: 1.6;
             color: var(--text-color); /* Letras Brancas */
         }
+        
+        /* -------------------------- */
+        /* AJUSTE PARA A LISTA DE INFOS */
+        /* -------------------------- */
+
+        .card .info-list {
+            list-style: none; /* Tira as bolinhas da lista */
+            padding: 0;
+            margin: 0;
+            color: var(--text-color); /* Garante a cor do texto */
+        }
+
+        .card .info-list li {
+            padding-top: 10px; /* Espaçamento entre os itens */
+            line-height: 1.5;
+        }
+
+        /* Deixa o "título" de cada item (o <strong>) com destaque */
+        .card .info-list li strong {
+            color: var(--secondary-color); /* Usa a tua cor secundária */
+            margin-right: 8px; /* Um espacinho */
+        }
 
         footer {
             margin-top: 50px; 
@@ -296,12 +318,17 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/320px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg" alt="Imagem do Sol">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>149.600.000 km (1 Unidade Astronômica)</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> ~1.392.000 km</li>
+                        <li><strong>Tipo:</strong> Estrela (Anã Amarela)</li>
+                        <li><strong>Temperatura (Superfície):</strong> ~5.500 °C</li>
+                        <li><strong>Distância da Terra:</strong> 149.600.000 km</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>O Sol é uma estrela gigante que fornece luz e calor. Seu diâmetro é de aproximadamente **1.392.000 km**. Caberiam mais de um milhão de Terras dentro dele.</p>
+                    <p>O Sol é uma estrela gigante que fornece luz e calor. Caberiam mais de um milhão de Terras dentro dele.</p>
                 </div>
             </div>
         </div>
@@ -311,12 +338,18 @@
             <img src="https://images-assets.nasa.gov/image/PIA11245/PIA11245~orig.jpg" alt="Imagem de Mercúrio">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>91.700.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 4.880 km</li>
+                        <li><strong>Tipo:</strong> Rochoso</li>
+                        <li><strong>Luas:</strong> 0</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~59 dias terrestres</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~88 dias terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>Mercúrio é o menor planeta, com um diâmetro de apenas **4.880 km**, e o mais rápido em órbita — um ano lá dura apenas 88 dias terrestres!</p>
+                    <p>Mercúrio é o menor planeta e o mais rápido em órbita — um ano lá dura apenas 88 dias terrestres!</p>
                 </div>
             </div>
         </div>
@@ -326,12 +359,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Venus-real_color.jpg/320px-Venus-real_color.jpg" alt="Imagem de Vênus">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>41.400.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 12.104 km</li>
+                        <li><strong>Tipo:</strong> Rochoso</li>
+                        <li><strong>Luas:</strong> 0</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~243 dias terrestres</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~225 dias terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>Vênus tem um diâmetro de **12.104 km**. É o planeta mais quente do Sistema Solar (462°C) devido ao efeito estufa extremo. Ele gira ao contrário dos outros planetas.</p>
+                    <p>É o planeta mais quente (462°C) devido ao efeito estufa extremo. Ele gira ao contrário dos outros planetas (um dia é mais longo que um ano!).</p>
                 </div>
             </div>
         </div>
@@ -341,12 +380,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/320px-The_Earth_seen_from_Apollo_17.jpg" alt="Imagem da Terra">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>0 km (Estamos aqui!)</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 12.742 km</li>
+                        <li><strong>Tipo:</strong> Rochoso</li>
+                        <li><strong>Luas:</strong> 1 (A Lua)</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~24 horas</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~365.25 dias</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>O diâmetro da Terra é de **12.742 km** (equatorial). É o único planeta conhecido por ter água líquida em sua superfície e o único a abrigar vida.</p>
+                    <p>É o único planeta conhecido por ter água líquida em sua superfície e o único a abrigar vida.</p>
                 </div>
             </div>
         </div>
@@ -356,12 +401,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/320px-OSIRIS_Mars_true_color.jpg" alt="Imagem de Marte">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>78.300.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 6.779 km</li>
+                        <li><strong>Tipo:</strong> Rochoso</li>
+                        <li><strong>Luas:</strong> 2 (Fobos e Deimos)</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~24.6 horas</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~687 dias terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>Com um diâmetro de **6.779 km**, Marte tem a maior montanha do Sistema Solar (Monte Olimpo) e é o "Planeta Vermelho" por causa do ferro oxidado em seu solo.</p>
+                    <p>Marte tem a maior montanha do Sistema Solar (Monte Olimpo) e é o "Planeta Vermelho" por causa do ferro oxidado em seu solo.</p>
                 </div>
             </div>
         </div>
@@ -371,12 +422,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/320px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg" alt="Imagem de Júpiter">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>628.700.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 142.984 km</li>
+                        <li><strong>Tipo:</strong> Gigante Gasoso</li>
+                        <li><strong>Luas:</strong> 95 (confirmadas)</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~10 horas</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~12 anos terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>Júpiter é o maior planeta, com um diâmetro de **142.984 km**. Sua Grande Mancha Vermelha é uma tempestade gigante maior que a Terra que dura séculos.</p>
+                    <p>Júpiter é o maior planeta. Sua Grande Mancha Vermelha é uma tempestade gigante maior que a Terra que dura séculos.</p>
                 </div>
             </div>
         </div>
@@ -386,12 +443,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/320px-Saturn_during_Equinox.jpg" alt="Imagem de Saturno">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>1.275.000.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 120.536 km</li>
+                        <li><strong>Tipo:</strong> Gigante Gasoso</li>
+                        <li><strong>Luas:</strong> 146 (confirmadas)</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~10.7 horas</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~29 anos terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>Saturno tem um diâmetro de **120.536 km**. É o planeta menos denso do Sistema Solar; se houvesse um oceano gigante, ele flutuaria.</p>
+                    <p>Saturno é famoso por seus anéis e é o planeta menos denso; se houvesse um oceano gigante, ele flutuaria.</p>
                 </div>
             </div>
         </div>
@@ -401,12 +464,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Uranus2.jpg/320px-Uranus2.jpg" alt="Imagem de Urano">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>2.723.000.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 51.118 km</li>
+                        <li><strong>Tipo:</strong> Gigante de Gelo</li>
+                        <li><strong>Luas:</strong> 27 (confirmadas)</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~17 horas</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~84 anos terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>O diâmetro de Urano é de **51.118 km**. Ele é único porque gira "deitado" em seu eixo, como se tivesse tombado.</p>
+                    <p>Urano é único porque gira "deitado" em seu eixo, como se tivesse tombado.</p>
                 </div>
             </div>
         </div>
@@ -416,12 +485,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg/320px-Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg" alt="Imagem de Netuno">
             <div class="details">
                 <div class="card">
-                    <h3>Distância Média da Terra</h3>
-                    <p>4.351.000.000 km</p>
+                    <h3>Ficha Técnica</h3>
+                    <ul class="info-list">
+                        <li><strong>Diâmetro:</strong> 49.528 km</li>
+                        <li><strong>Tipo:</strong> Gigante de Gelo</li>
+                        <li><strong>Luas:</strong> 14 (confirmadas)</li>
+                        <li><strong>Duração do Dia (Rotação):</strong> ~16 horas</li>
+                        <li><strong>Duração do Ano (Órbita):</strong> ~165 anos terrestres</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3>Curiosidade</h3>
-                    <p>Netuno tem um diâmetro de **49.528 km**. É o planeta mais distante do Sol e tem os ventos mais rápidos do Sistema Solar.</p>
+                    <p>Netuno é o planeta mais distante do Sol e tem os ventos mais rápidos do Sistema Solar, ultrapassando 2.000 km/h.</p>
                 </div>
             </div>
         </div>
